@@ -9,8 +9,7 @@ const ServerMentorRoom = (props) => {
     const partnerVideoRef = useRef();
 	const socketRef = useRef();
 	const localPeerRef = useRef();
-	const offerRef = useRef();
-	const wsUrl = "wss://akimikano.de/ws/mentor-room/"
+	const wsUrl = "ws://localhost:8000/ws/mentor-room/"
 	const stunServers = [
 			// {
 			// 	urls: "stun:stun.l.google.com:19302"
@@ -38,7 +37,6 @@ const ServerMentorRoom = (props) => {
 			// sendOffer();
 		});
 
-
 	}, []);
 
 	function createPeer(stream) {
@@ -48,13 +46,12 @@ const ServerMentorRoom = (props) => {
 		pc.onicecandidate = event => {
 			console.log("onicecandidate")
 			if (event.candidate) {
-				console.log("Ice candidate: ", event.candidate)
-				sendIceCandidate(event.candidate);
+				console.log("Ice candidate: ", event.candidate);
 			}
 		};
 
 		pc.ontrack = event => {
-			console.log("ontrack");
+			console.log("On track: ", event.streams[0].id);
 			partnerVideoRef.current.srcObject = event.streams[0];
 		};
 
@@ -71,37 +68,13 @@ const ServerMentorRoom = (props) => {
 		localPeerRef.current.createOffer()
 		  .then(offer => localPeerRef.current.setLocalDescription(offer))
 		  .then(() => {
-			  socketRef.current.send(JSON.stringify({"type": "offer", "data": localPeerRef.current.localDescription}));
+			  socketRef.current.send(JSON.stringify(localPeerRef.current.localDescription));
 		  })
 		  .catch(error => console.error('Error creating offer.', error));
-
-	};
-
-	function sendAnswer(offer) {
-		localPeerRef.current.setRemoteDescription(new RTCSessionDescription(offer))
-		.then(() => {
-			return localPeerRef.current.createAnswer();
-		})
-		.then((answer) => {
-			return localPeerRef.current.setLocalDescription(answer);
-		})
-		.then((answer) => {
-			socketRef.current.send(JSON.stringify({"type": "answer", "data": localPeerRef.current.localDescription}));
-		})
-		.catch(error => console.error('Error handling offer.', error));
 	};
 
 	function takeAnswer(answer) {
 	  localPeerRef.current.setRemoteDescription(new RTCSessionDescription(answer));
-	};
-
-	function sendIceCandidate(candidate) {
-		socketRef.current.send(JSON.stringify({"type": "ice-candidate", "data": candidate}));
-	};
-
-	function takeIceCandidate(candidate) {
-		const iceCandidate = new RTCIceCandidate(candidate);
-		localPeerRef.current.addIceCandidate(iceCandidate);
 	};
 
 	function createWebsocket() {
@@ -112,17 +85,8 @@ const ServerMentorRoom = (props) => {
 
 				console.log("Message from server ", server_data)
 
-				if (server_data.type === "offer") {
-					sendAnswer(server_data.data);
-				}
-				else if (server_data.type === "answer") {
-					takeAnswer(server_data.data);
-				}
-				else if (server_data.type === "user-connection") {
-					sendOffer();
-				}
-				else if (server_data.type === "ice-candidate") {
-					takeIceCandidate(server_data.data);
+				if (server_data.type === "answer") {
+					takeAnswer(server_data);
 				}
 			});
 		});
