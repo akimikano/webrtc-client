@@ -25,18 +25,22 @@ const ServerUserRoom = (props) => {
     useEffect(() => {
 		console.log("use effect")
 
-		navigator.mediaDevices.getUserMedia({audio: true})
-		.then(stream => {
-			createPeer(stream);
-			userVideoRef.current.srcObject = stream;
-		})
-		.then(() => {
-			createWebsocket();
-		})
-		.then(() => {
-			setTimeout(sendOffer, 2000)
-			// sendOffer();
-		});
+		// navigator.mediaDevices.getUserMedia({audio: true})
+		// .then(stream => {
+		// 	createPeer(stream);
+		// 	userVideoRef.current.srcObject = stream;
+		// })
+		// .then(() => {
+		// 	createWebsocket();
+		// })
+		// .then(() => {
+		// 	setTimeout(sendOffer, 2000)
+		// 	// sendOffer();
+		// });
+
+		createPeer();
+		createWebsocket();
+		setTimeout(sendOffer, 2000);
 
 
 	}, []);
