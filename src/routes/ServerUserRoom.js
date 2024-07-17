@@ -9,7 +9,7 @@ const ServerUserRoom = (props) => {
     const partnerVideoRef = useRef();
 	const socketRef = useRef();
 	const localPeerRef = useRef();
-	const wsUrl = "ws://localhost:8000/ws/user-room/"
+	const wsUrl = "wss://akimikano.de/ws/user-room/"
 	const stunServers = [
 			// {
 			// 	urls: "stun:stun.l.google.com:19302"

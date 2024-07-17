@@ -9,7 +9,7 @@ const ServerMentorRoom = (props) => {
     const partnerVideoRef = useRef();
 	const socketRef = useRef();
 	const localPeerRef = useRef();
-	const wsUrl = "ws://localhost:8000/ws/mentor-room/"
+	const wsUrl = "wss://akimikano.de/ws/mentor-room/"
 	const stunServers = [
 			// {
 			// 	urls: "stun:stun.l.google.com:19302"
