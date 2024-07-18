@@ -62,6 +62,7 @@ const ServerMentorRoom = (props) => {
 		};
 
 		localPeerRef.current = pc;
+		console.log("Transceivers: ", pc.getTransceivers())
 	};
 
 	function sendOffer() {
