@@ -51,7 +51,7 @@ const ServerMentorRoom = (props) => {
 		};
 
 		pc.ontrack = event => {
-			console.log("On track: ", event.streams[0].id);
+			console.log("On track: ", event.streams[0].id, event.streams[0].active);
 			partnerVideoRef.current.srcObject = event.streams[0];
 		};
 
