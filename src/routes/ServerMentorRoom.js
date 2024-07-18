@@ -4,9 +4,7 @@ import {useParams} from "react-router-dom";
 
 const ServerMentorRoom = (props) => {
   	const params = useParams();
-	const userStreamRef = useRef();
 	const userVideoRef = useRef();
-    const partnerVideoRef = useRef();
 	const socketRef = useRef();
 	const localPeerRef = useRef();
 	const wsUrl = "wss://akimikano.de/ws/mentor-room/"
@@ -52,7 +50,6 @@ const ServerMentorRoom = (props) => {
 
 		pc.ontrack = event => {
 			console.log("On track: ", event.streams[0].id, event.streams[0].active);
-			partnerVideoRef.current.srcObject = event.streams[0];
 		};
 
 		stream.getTracks().forEach(track => pc.addTrack(track, stream));
@@ -98,7 +95,6 @@ const ServerMentorRoom = (props) => {
     return (
         <div>
             <video autoPlay ref={userVideoRef} />
-            <video autoPlay ref={partnerVideoRef} />
         </div>
     );
 }

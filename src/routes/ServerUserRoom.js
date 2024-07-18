@@ -4,8 +4,6 @@ import {useParams} from "react-router-dom";
 
 const ServerUserRoom = (props) => {
   	const params = useParams();
-	const userStreamRef = useRef();
-	const userVideoRef = useRef();
     const partnerVideoRef = useRef();
 	const socketRef = useRef();
 	const localPeerRef = useRef();
@@ -102,7 +100,6 @@ const ServerUserRoom = (props) => {
 
     return (
         <div>
-            <video autoPlay ref={userVideoRef} />
             <video autoPlay ref={partnerVideoRef} />
         </div>
     );
