@@ -11,14 +11,14 @@ const ServerMentorRoom = (props) => {
 	const localPeerRef = useRef();
 	const wsUrl = "wss://akimikano.de/ws/mentor-room/"
 	const stunServers = [
-			// {
-			// 	urls: "stun:stun.l.google.com:19302"
-			// },
-			// {
-			// 	urls: 'turn:akimikano.de:3478',
-			// 	credential: 'test',
-			// 	username: 'test'
-			// }
+			{
+				urls: "stun:stun.l.google.com:19302"
+			},
+			{
+				urls: 'turn:akimikano.de:3478',
+				credential: 'test',
+				username: 'test'
+			}
 	];
 
     useEffect(() => {
