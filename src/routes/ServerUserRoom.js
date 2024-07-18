@@ -39,8 +39,6 @@ const ServerUserRoom = (props) => {
 
 		createPeer();
 		createWebsocket();
-		setTimeout(sendOffer, 2000);
-
 
 	}, []);
 
@@ -95,6 +93,8 @@ const ServerUserRoom = (props) => {
 					takeAnswer(server_data);
 				}
 			});
+
+			sendOffer()
 		});
 
 		console.log("Method: createWebsocket")
