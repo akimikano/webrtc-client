@@ -43,6 +43,7 @@ const ServerUserRoom = (props) => {
 	function createPeer(stream) {
 		let pc = new RTCPeerConnection(stunServers);
 		pc.addTransceiver("video", {direction: "recvonly"});
+		pc.addTransceiver("audio", {direction: "recvonly"});
 
 		pc.onicecandidate = event => {
 			console.log("onicecandidate")
