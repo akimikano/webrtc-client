@@ -22,7 +22,7 @@ const ServerMentorRoom = (props) => {
     useEffect(() => {
 		console.log("use effect")
 
-		navigator.mediaDevices.getUserMedia({video: true})
+		navigator.mediaDevices.getUserMedia({video: true, audio: true})
 		.then(stream => {
 			createPeer(stream);
 			userVideoRef.current.srcObject = stream;
