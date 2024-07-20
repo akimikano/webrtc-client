@@ -40,6 +40,7 @@ const ServerMentorRoom = (props) => {
 	function createPeer(stream) {
 		let pc = new RTCPeerConnection(stunServers);
 		pc.addTransceiver("video", {direction: "sendonly"});
+		pc.addTransceiver("audio", {direction: "sendonly"});
 
 		pc.onicecandidate = event => {
 			console.log("onicecandidate")
